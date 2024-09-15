@@ -34,44 +34,33 @@ emotion_counts = {emotion: 0 for emotion in emotion_mapping.values()}
 sentiment_labels = {0: 'Negative', 1: 'Positive'}
 sentiment_counts = {label: 0 for label in sentiment_labels.values()}
 
-test = "this university would be lovely if it werent for dr ballout"
 
-processed=preprocess_text(test)
-sentiment= sentiment_vectorizer.transform([processed])
-prediction=sentiment_model.predict(sentiment)
-s=sentiment_labels[prediction[0]]
-sentiment_counts[s]+=1
-
-
-emotion= emotion_vectorizer.transform([processed])
-prediction_emotions=emotion_model.predict(emotion)
-s=emotion_mapping[prediction_emotions[0]]
-emotion_counts[s]+=1
 
 
 
 
 # Process each example text
-# for example_text in example_texts:
-#     example_text = example_text.strip()
-#     if not example_text:
-#         continue
-#
-#     preprocessed_text = preprocess_text(example_text)
-#
-#     sentiment_transformed_text = sentiment_vectorizer.transform([preprocessed_text])
-#     sentiment_prediction = sentiment_model.predict(sentiment_transformed_text)
-#     sentiment = sentiment_labels[sentiment_prediction[0]]
-#     sentiment_counts[sentiment] += 1
-#
-#     emotion_transformed_text = emotion_vectorizer.transform([preprocessed_text])
-#     emotion_prediction = emotion_model.predict(emotion_transformed_text)
-#     emotion_name = emotion_mapping[emotion_prediction[0]]
-#     emotion_counts[emotion_name] += 1
-#
-#     print(f'Text: "{example_text}"')
-#     print(f'Sentiment Prediction: {sentiment}')
-#     print(f'Emotion Prediction: {emotion_name}\n')
+for example_text in example_texts:
+    example_text = example_text.strip()
+    if not example_text:
+        continue
+
+    preprocessed_text = preprocess_text(example_text)
+
+    sentiment_transformed_text = sentiment_vectorizer.transform([preprocessed_text])
+    sentiment_prediction = sentiment_model.predict(sentiment_transformed_text)
+    sentiment = sentiment_labels[sentiment_prediction[0]]
+    sentiment_counts[sentiment] += 1
+
+    emotion_transformed_text = emotion_vectorizer.transform([preprocessed_text])
+    emotion_prediction = emotion_model.predict(emotion_transformed_text)
+    emotion_name = emotion_mapping[emotion_prediction[0]]
+    emotion_counts[emotion_name] += 1
+
+
+    print(f'Text: "{example_text}"')
+    print(f'Sentiment Prediction: {sentiment}')
+    print(f'Emotion Prediction: {emotion_name}\n')
 
 plt.figure(figsize=(10, 5))
 
